@@ -32,8 +32,14 @@ public class characterAction : MonoBehaviour {
 		Debug.DrawRay (aimRay.origin, aimRay.direction * linkDistanceLimit);
 
 		if (Physics.Raycast(aimRay, out r, linkDistanceLimit)) {
-			Debug.Log (r.collider.gameObject.tag);
-			Debug.Log("distance:  " + Vector3.Distance(transform.position, r.collider.gameObject.transform.position));
+			//Debug.Log (r.collider.gameObject.tag);
+			//Debug.Log("distance:  " + Vector3.Distance(transform.position, r.collider.gameObject.transform.position));
+
+			GameObject hitObject = r.collider.gameObject;
+
+			if (hitObject.tag == "Node") {
+				gameObject.GetComponent<linkMovement> ().movetoNode (transform.position, hitObject.transform.position + new Vector3(0,2,0));
+			}
 		}
 	}
 }
