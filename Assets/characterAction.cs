@@ -4,6 +4,7 @@ using System.Collections;
 public class characterAction : MonoBehaviour {
 
 	public float linkDistanceLimit = 1000f;
+	public GameObject aimObject;
 
 	// Use this for initialization
 	void Start () {
@@ -24,11 +25,13 @@ public class characterAction : MonoBehaviour {
 
 		RaycastHit r;
 
-		Vector3 sourcePosition = Camera.main.transform.position;
+		Vector3 sourcePosition = aimObject.transform.position;
 
-		Debug.DrawRay (sourcePosition, transform.forward * linkDistanceLimit);
+		Ray aimRay = new Ray (sourcePosition, Camera.main.transform.forward);
 
-		if (Physics.Raycast(new Ray(transform.position, transform.forward), out r, linkDistanceLimit)) {
+		Debug.DrawRay (aimRay.origin, aimRay.direction * linkDistanceLimit);
+
+		if (Physics.Raycast(aimRay, out r, linkDistanceLimit)) {
 			Debug.Log (r.collider.gameObject.tag);
 			Debug.Log("distance:  " + Vector3.Distance(transform.position, r.collider.gameObject.transform.position));
 		}
