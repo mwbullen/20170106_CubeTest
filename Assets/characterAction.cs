@@ -16,13 +16,12 @@ public class characterAction : MonoBehaviour {
 		if (Input.GetMouseButtonDown (0)) {
 			//Debug.Log ("click");
 
-			attemptLinkNode ();
+			//attemptLinkNode ();
 		}
 
 	}
 
-	void attemptLinkNode() {
-
+	GameObject getAimTarget() {
 		RaycastHit r;
 
 		Vector3 sourcePosition = aimObject.transform.position;
@@ -35,11 +34,18 @@ public class characterAction : MonoBehaviour {
 			//Debug.Log (r.collider.gameObject.tag);
 			//Debug.Log("distance:  " + Vector3.Distance(transform.position, r.collider.gameObject.transform.position));
 
-			GameObject hitObject = r.collider.gameObject;
-
-			if (hitObject.tag == "Node") {
-				gameObject.GetComponent<linkMovement> ().movetoNode (transform.position, hitObject.transform.position + new Vector3(0,2,0));
-			}
+			return r.collider.gameObject;
 		}
+
+		return null;
+	}
+
+	void attemptLinkNode() {
+		GameObject hitObject = getAimTarget ();
+
+		if (hitObject != null &&  hitObject.tag == "Node") {
+			gameObject.GetComponent<linkMovement> ().movetoNode (transform.position, hitObject.transform.position + new Vector3(0,2,0));
+		}
+
 	}
 }
