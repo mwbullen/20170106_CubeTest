@@ -25,6 +25,8 @@ public class accessPointLayout : MonoBehaviour {
 			newAccessPoint.transform.parent = accessPointParent.transform;
 
 			newAccessPoint.transform.position = newAccessPoint.transform.parent.position + new Vector3 (3.5f, 0, 3.5f);
+
+
 		}
 	}
 }
